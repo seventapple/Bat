@@ -1,7 +1,10 @@
 package com.bat.thread;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.management.ManagementFactory;
+
+import com.bat.common.StringUtil;
 
 public class Service implements Runnable {
 	private boolean flag = true;
@@ -13,17 +16,22 @@ public class Service implements Runnable {
 		System.out.println(pidName);
 		String pid = pidName.split("@")[0];
 		System.out.println("pid : " + pid);
-		// TODO:linux环境下 使用jsvc方式启动项目获取路径不正确
-//		String projectPath = System.getProperty("user.dir");
-		String projectPath = "/home/wang/test/bat3";
-		System.out.println("PATH : " + projectPath);
-		String pathParent = projectPath + File.separator + "temp";
-		File fileParent = new File(pathParent);
+		// FIX-linux环境下 使用jsvc方式启动项目获取路径不正确
+		String path = null;
+		try {
+			path = StringUtil.getJavaLibraryPath();
+			File parent = new File(path);
+			path = parent.getParent();
+			System.out.println("PATH : " + path);
+		} catch (IOException e1) {
+		}
+		path = path + File.separator + "temp";
+		File fileParent = new File(path);
 		if (!fileParent.exists()) {
 			fileParent.mkdirs();
 		}
 		while (flag) {
-			String name = pathParent + File.separator + cnt++ + ".project";
+			String name = path + File.separator + cnt++ + ".project";
 			System.out.println("make file : " + name);
 			File file = new File(name);
 			try {
