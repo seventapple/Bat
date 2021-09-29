@@ -1,0 +1,130 @@
+if [ -f /etc/rc.d/functions ];
+then
+    . /etc/init.d/functions
+fi
+
+if [ -f /etc/sysconfig/network ];
+then
+    . /etc/sysconfig/network
+fi
+
+#!/bin/sh 
+#remeber encode set UNIX
+PRODUCT_DIR=/home/wang/test/bat3
+EXEC=$PRODUCT_DIR/lib/jsvc
+JAVA_HOME=/home/wang/java/jre1.8.0_301
+export JAVA_HOME
+
+CLASS_PATH=$CLASS_PATH:$PRODUCT_DIR/lib/bat3.jar
+CLASS_PATH=$CLASS_PATH:$PRODUCT_DIR/lib/commons-daemon-1.2.0.jar
+
+BAT_SERVICE=bat3Service
+
+PID_FILE=$PRODUCT_DIR/conf/${BAT_SERVICE}.pid
+EXECUTE_PRO=$JAVA_HOME/bin/java
+CLASS=com.bat.Counting
+
+LOG_OUT=$PRODUCT_DIR/logs/${BAT_SERVICE}.out
+LOG_ERR=$PRODUCT_DIR/logs/${BAT_SERVICE}.err
+
+RETVAL=0
+do_exec(){
+    $EXEC  \
+    -home "$JAVA_HOME" \
+    -umask 022 \
+    -Dsun.jnu.encoding=UTF-8 \
+    -Dfile.encoding=UTF-8 \
+    -Djcifs.smb.client.dfs.disabled=false \
+    -Djcifs.resolveOrder=DNS \
+    -Xms512M -Xmx1024M \
+    -cp $CLASS_PATH \
+    -outfile $LOG_OUT \
+    -errfile $LOG_ERR \
+    -pidfile $PID_FILE $1 $CLASS
+}
+
+start(){
+  if [ $(status_flag) -eq 1 ] ;
+  then
+    echo "$BAT_SERVICE is already running!"
+  else
+    echo "Starting $BAT_SERVICE ..."
+    do_exec
+    sleep 3s
+    echo "$BAT_SERVICE is started!"
+  fi
+}
+
+stop(){
+  if [ $(status_flag) -eq 0 ] ;
+  then
+    echo "$BAT_SERVICE is already running!"
+  else
+    echo "Stopping $BAT_SERVICE ..."
+    do_exec "-stop"
+    RETVAL=$?
+    
+    if [ $RETVAL = 0 ];
+    then 
+      echo "$BAT_SERVICE is stopped!"
+    else
+      RETVAL=2
+    fi
+  fi
+}
+
+restart(){
+  if [ $(status_flag) -eq 0 ] ;
+  then
+    start
+  else
+    stop
+    start
+  fi
+}
+
+status(){
+  if [ $(status_flag) -eq 1 ] ;
+  then
+    echo "$BAT_SERVICE is running!"
+  else
+    echo "$BAT_SERVICE is stopped!"
+  fi
+}
+
+status_flag(){
+# 0:stopped 1:running
+  status=0
+
+  if [[ -e $PID_FILE && -s $PID_FILE ]];
+  then
+    pid_read=`awk 'NR==1{print $1}' $PID_FILE`
+    noNum=`echo $pid_read | sed 's/[0-9]//g'`
+
+    if [[ $pid_read && -z $noNum && ! -z $(ps -p $pid_read | awk 'NR==2{print}') ]];
+    then
+      status=1
+    fi
+
+  fi
+  echo $status
+}
+
+case $1 in
+  start)
+        start
+	;;
+  stop)
+        stop
+	;;
+  restart)
+        restart
+	;;
+  status)
+        status
+	;;
+  *)
+    echo "Usage:service $BAT_SERVICE {start|stop|restart|status}"
+    RETVAL=1
+esac
+exit $RETVAL
