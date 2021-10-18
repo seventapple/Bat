@@ -24,7 +24,7 @@ public class StringUtil {
 
 	@SuppressWarnings("rawtypes")
 	public static String getJavaLibraryPath() throws IOException {
-		String jarName = com.bat.VersionInfo.getProduct() + ".jar";
+		String jarName = com.VersionInfo.getProduct() + ".jar";
 		Class className = StringUtil.class;
 		if (className != null) {
 			File file = getModuleFileName(className);

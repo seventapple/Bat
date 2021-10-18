@@ -11,7 +11,7 @@
 		<jar destfile="${build.path}.jar">
 			
 			<manifest>
-				<attribute name="Main-Class" value="com.bat.VersionInfo" />
+				<attribute name="Main-Class" value="com.VersionInfo" />
 				<attribute name="package-artifactId" value="${package.artifactId}" />
 				<attribute name="package-groupId" value="${package.groupId}" />
 				<attribute name="package-version" value="${package.version}/${build.number}" />
@@ -68,20 +68,5 @@
     <target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
         <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
         <antcall target="build"/>
-    </target>
-    <target name="Counting">
-        <java classname="com.bat.Counting" failonerror="true" fork="yes">
-            <classpath refid="Bat.classpath"/>
-        </java>
-    </target>
-    <target name="StartOther">
-        <java classname="com.bat.StartOther" failonerror="true" fork="yes">
-            <classpath refid="Bat.classpath"/>
-        </java>
-    </target>
-    <target name="StartUp (1)">
-        <java classname="com.bat.StartUp" failonerror="true" fork="yes">
-            <classpath refid="Bat.classpath"/>
-        </java>
     </target>
 </project>

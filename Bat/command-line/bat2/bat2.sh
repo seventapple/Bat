@@ -5,4 +5,4 @@ JAVA_HOME=/home/wang/java/jre1.8.0_301
 
 CLASS_PATH=$EXEC_DIR/lib/bat2.jar
 
-$JAVA_HOME/bin/java -classpath ${CLASS_PATH} com.bat.StartOther "$@"
+$JAVA_HOME/bin/java -classpath ${CLASS_PATH} com.bat2.StartOther "$@"

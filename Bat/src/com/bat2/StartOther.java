@@ -1,4 +1,4 @@
-package com.bat;
+package com.bat2;
 
 import java.io.BufferedReader;
 import java.io.File;

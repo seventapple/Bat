@@ -1,4 +1,4 @@
-package com.bat;
+package com;
 
 import java.net.URL;
 import java.util.Enumeration;

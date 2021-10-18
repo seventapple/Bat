@@ -18,11 +18,11 @@ export JAVA_HOME
 CLASS_PATH=$CLASS_PATH:$PRODUCT_DIR/lib/bat3.jar
 CLASS_PATH=$CLASS_PATH:$PRODUCT_DIR/lib/commons-daemon-1.2.0.jar
 
-BAT_SERVICE=bat3Service
+BAT_SERVICE=jsvcService
 
 PID_FILE=$PRODUCT_DIR/conf/${BAT_SERVICE}.pid
 EXECUTE_PRO=$JAVA_HOME/bin/java
-CLASS=com.bat.Counting
+CLASS=com.bat3.Counting
 
 LOG_OUT=$PRODUCT_DIR/logs/${BAT_SERVICE}.out
 LOG_ERR=$PRODUCT_DIR/logs/${BAT_SERVICE}.err

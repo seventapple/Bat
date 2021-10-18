@@ -7,4 +7,4 @@ set CLASSPATH=%CLASSPATH%;%LIB%\commons-daemon-1.2.0.jar
 
 set JAVA_EXE=E:\Java\jre1.8.0_25\bin\java.exe
 
-"%JAVA_EXE%" -classpath %CLASSPATH% com.bat.Counting %*
+"%JAVA_EXE%" -classpath %CLASSPATH% com.bat3.Counting %*

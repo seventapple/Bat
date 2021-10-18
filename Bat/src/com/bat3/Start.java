@@ -1,4 +1,4 @@
-package com.bat.thread;
+package com.bat3;
 
 import java.io.File;
 import java.io.IOException;
@@ -6,11 +6,10 @@ import java.lang.management.ManagementFactory;
 
 import com.bat.common.StringUtil;
 
-public class Service implements Runnable {
+public class Start {
 	private boolean flag = true;
 	private int cnt = 0;
 
-	@Override
 	public void run() {
 		String pidName = ManagementFactory.getRuntimeMXBean().getName();
 		System.out.println(pidName);
