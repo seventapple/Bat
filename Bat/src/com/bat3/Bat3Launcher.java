@@ -8,8 +8,7 @@ public class Bat3Launcher implements Daemon {
 	public static Bat3Launcher launcher;
 	private Service service;
 
-	public Bat3Launcher() {
-	};
+	private Bat3Launcher() {};
 
 	// 程序启动入口
 	public void run() {
@@ -70,5 +69,6 @@ public class Bat3Launcher implements Daemon {
 	public static void main(String[] args) {
 		launcher = new Bat3Launcher();
 		launcher.run();
+		return;
 	}
 }
