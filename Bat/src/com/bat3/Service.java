@@ -1,7 +1,6 @@
 package com.bat3;
 
 public class Service implements Runnable {
-
 	private boolean isRunning = false;
 	private Start start;
 

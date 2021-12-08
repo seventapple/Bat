@@ -8,6 +8,10 @@ import java.net.URLConnection;
 import java.util.StringTokenizer;
 
 public class StringUtil {
+	public static boolean isNull(String str) {
+		return !(str != null && str.length() != 0);
+	}
+
 	// 配置文件读取相关↓↓↓
 	public static String getPropertyFilePath() {
 		String path = "";

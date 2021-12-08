@@ -5,10 +5,12 @@ import org.apache.commons.daemon.DaemonContext;
 import org.apache.commons.daemon.DaemonInitException;
 
 public class Bat3Launcher implements Daemon {
+
 	public static Bat3Launcher launcher;
 	private Service service;
 
-	private Bat3Launcher() {};
+	private Bat3Launcher() {
+	};
 
 	// 程序启动入口
 	public void run() {
